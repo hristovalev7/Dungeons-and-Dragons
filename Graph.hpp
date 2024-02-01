@@ -10,7 +10,7 @@ public:
 
     Graph(size_t rows, size_t columns);
 
-    bool canGo(unsigned int i, unsigned int j, const Direction& direction, unsigned int columns) const;
+    [[nodiscard]] bool canGo(unsigned int i, unsigned int j, const Direction& direction, unsigned int rows, unsigned int columns) const;
 
     void addEdge(const std::pair<unsigned int, unsigned int>& node1, const std::pair<unsigned int, unsigned int>& node2, unsigned int matrixColumns);
 };

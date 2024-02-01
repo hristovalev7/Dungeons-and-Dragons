@@ -1,7 +1,11 @@
 #include "Graph.hpp"
 
-bool Graph::canGo(unsigned int i, unsigned int j, const Direction& direction, unsigned int columns) const
+bool Graph::canGo(unsigned int i, unsigned int j, const Direction& direction, unsigned int rows, unsigned int columns) const
 {
+    if (j >= columns - 1 && direction == Right || j == 0 && direction == Left || i == 0 && direction == Up || i == rows - 1 && direction == Down)
+    {
+        return false;
+    }
     switch (direction)
     {
         case Up:

@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Dungeons_and_Dragons
         main.cpp
-        Matrix.cpp
         Matrix.hpp
+        Map.cpp
+        Map.hpp
+        Direction.hpp
+        Graph.cpp
+        Graph.hpp
 )

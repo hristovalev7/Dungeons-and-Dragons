@@ -2,7 +2,7 @@
 
 typedef std::pair<unsigned int, unsigned int> Cell;
 
-void Map::printBorder() const
+void Map::printHeader() const
 {
     // getColumns() * 4 + 1 = getColumns() * 3 + (getColumns() - 1) + 2
     // getColumns() * 3 -> every cell is 3 chars wide
@@ -21,9 +21,8 @@ Map::Map(const Matrix<char>& matrix) : Matrix(matrix), level(1), dragons(0), tre
 
 void Map::print() const
 {
-    printBorder();
+    printHeader();
     printMaze();
-    printBorder();
 }
 
 void Map::addConnection(const std::pair<unsigned int, unsigned int>& cell1, const std::pair<unsigned int, unsigned int>& cell2)
@@ -83,7 +82,7 @@ void Map::generateMaze()
 
 void Map::printMaze() const
 {
-    for (int i{0}; i < getRows() - 1; ++i)
+    for (int i{0}; i < getRows(); ++i)
     {
         std::cout << '#';
         for (int j{0}; j < getColumns(); ++j)
@@ -120,25 +119,10 @@ void Map::printMaze() const
         }
         std::cout << '\n';
     }
-    std::cout << '#';
-
-    for (int j{0}; j < getColumns(); ++j)
-    {
-        std::cout << ' ' << getElement(getRows() - 1, j) << ' ';
-        if (canGo(std::make_pair(getRows() - 1, j), Right))
-        {
-            std::cout << ' ';
-        }
-        else
-        {
-            std::cout << '#';
-        }
-    }
-    std::cout << '\n';
 }
 
 bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
 {
-    return graph.canGo(cell.first, cell.second, direction, getColumns());
+    return graph.canGo(cell.first, cell.second, direction, getRows(), getColumns());
 }
 

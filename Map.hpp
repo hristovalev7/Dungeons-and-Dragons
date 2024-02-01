@@ -17,7 +17,7 @@ private:
 
     Graph graph;
 
-    void printBorder() const;
+    void printHeader() const;
 
     void printMaze() const;
 

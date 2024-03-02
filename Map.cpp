@@ -156,16 +156,17 @@ void Map::printMaze() const
 
 bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
 {
+    MatrixCell currentCell = getElement(cell.first, cell.second);
     switch (direction)
     {
         case Up:
-            return getElement(cell.first, cell.second).up;
+            return currentCell.up;
         case Down:
-            return getElement(cell.first, cell.second).down;
+            return currentCell.down;
         case Left:
-            return getElement(cell.first, cell.second).left;
+            return currentCell.left;
         case Right:
-            return getElement(cell.first, cell.second).right;
+            return currentCell.right;
     }
 }
 

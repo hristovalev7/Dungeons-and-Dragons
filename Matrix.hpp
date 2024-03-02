@@ -49,28 +49,6 @@ public:
 };
 
 template<typename T>
-bool Matrix<T>::inBounds(std::pair<unsigned int, unsigned int> cell) const
-{
-    return cell.first < rows && cell.second < columns;
-}
-
-template<typename T>
-std::pair<unsigned int, unsigned int> Matrix<T>::getNeighbor(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
-{
-    switch (direction)
-    {
-        case Up:
-            return std::make_pair(cell.first - 1, cell.second);
-        case Down:
-            return std::make_pair(cell.first + 1, cell.second);
-        case Left:
-            return std::make_pair(cell.first, cell.second - 1);
-        case Right:
-            return std::make_pair(cell.first, cell.second + 1);
-    }
-}
-
-template<typename T>
 void Matrix<T>::deallocate()
 {
     for (int i{0}; i < rows; ++i)
@@ -199,5 +177,26 @@ void Matrix<T>::setElement(unsigned int i, unsigned int j, const T& element)
     elements[i][j] = element;
 }
 
+template<typename T>
+std::pair<unsigned int, unsigned int> Matrix<T>::getNeighbor(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
+{
+    switch (direction)
+    {
+        case Up:
+            return std::make_pair(cell.first - 1, cell.second);
+        case Down:
+            return std::make_pair(cell.first + 1, cell.second);
+        case Left:
+            return std::make_pair(cell.first, cell.second - 1);
+        case Right:
+            return std::make_pair(cell.first, cell.second + 1);
+    }
+}
+
+template<typename T>
+bool Matrix<T>::inBounds(std::pair<unsigned int, unsigned int> cell) const
+{
+    return cell.first < rows && cell.second < columns;
+}
 
 #endif //DUNGEONS_AND_DRAGONS_MATRIX_HPP

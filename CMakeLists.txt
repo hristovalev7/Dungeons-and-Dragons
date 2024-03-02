@@ -10,4 +10,6 @@ add_executable(Dungeons_and_Dragons
         Map.hpp
         Direction.hpp
         Cell.hpp
+        functions.cpp
+        functions.hpp
 )

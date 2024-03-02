@@ -5,28 +5,26 @@
 #include <stack>
 #include <set>
 #include <random>
-#include "Graph.hpp"
 #include "Matrix.hpp"
+#include "Cell.hpp"
 
-class Map : public Matrix<char>
+class Map : public Matrix<MatrixCell>
 {
 private:
     unsigned int level;
     unsigned int dragons;
     unsigned int treasures;
 
-    Graph graph;
-
     void printHeader() const;
 
     void printMaze() const;
 
 public:
-    Map(const Matrix<char>& matrix);
+    Map(const Matrix<MatrixCell>& matrix);
 
     void print() const override;
 
-    void addConnection(const std::pair<unsigned int, unsigned int>& cell1, const std::pair<unsigned int, unsigned int>& cell2);
+    void addConnection(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction);
 
     [[nodiscard]] bool canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const;
 

@@ -15,7 +15,7 @@ void Map::printHeader() const
     std::cout << '\n';
 }
 
-Map::Map(const Matrix<char>& matrix) : Matrix(matrix), level(1), dragons(0), treasures(0), graph(matrix.getRows(), matrix.getColumns())
+Map::Map(const Matrix<MatrixCell>& matrix) : Matrix(matrix), level(1), dragons(0), treasures(0)
 {
 }
 
@@ -25,9 +25,42 @@ void Map::print() const
     printMaze();
 }
 
-void Map::addConnection(const std::pair<unsigned int, unsigned int>& cell1, const std::pair<unsigned int, unsigned int>& cell2)
+void Map::addConnection(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction)
 {
-    graph.addEdge(cell1, cell2, getColumns());
+    std::pair<unsigned int, unsigned int> neighbor{getNeighbor(cell, direction)};
+    if (!inBounds(neighbor))
+    {
+        return;
+    }
+    MatrixCell currentCell{getElement(cell.first, cell.second)};
+    MatrixCell neighborCell{getElement(neighbor.first, neighbor.second)};
+    switch (direction)
+    {
+        case Up:
+            currentCell.up = true;
+            neighborCell.down = true;
+            setElement(cell.first, cell.second, currentCell);
+            setElement(neighbor.first, neighbor.second, neighborCell);
+            break;
+        case Down:
+            currentCell.down = true;
+            neighborCell.up = true;
+            setElement(cell.first, cell.second, currentCell);
+            setElement(neighbor.first, neighbor.second, neighborCell);
+            break;
+        case Left:
+            currentCell.left = true;
+            neighborCell.right = true;
+            setElement(cell.first, cell.second, currentCell);
+            setElement(neighbor.first, neighbor.second, neighborCell);
+            break;
+        case Right:
+            currentCell.right = true;
+            neighborCell.left = true;
+            setElement(cell.first, cell.second, currentCell);
+            setElement(neighbor.first, neighbor.second, neighborCell);
+            break;
+    }
 }
 
 void Map::generateMaze()
@@ -72,7 +105,7 @@ void Map::generateMaze()
 
             int randomNumber = distribution(generator);
             Direction direction = eligible[randomNumber];
-            addConnection(currentCell, getNeighbor(currentCell, direction));
+            addConnection(currentCell, direction);
             visited.insert(getNeighbor(currentCell, direction));
             stack.push(getNeighbor(currentCell, direction));
             eligible.clear();
@@ -123,6 +156,16 @@ void Map::printMaze() const
 
 bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
 {
-    return graph.canGo(cell.first, cell.second, direction, getRows(), getColumns());
+    switch (direction)
+    {
+        case Up:
+            return getElement(cell.first, cell.second).up;
+        case Down:
+            return getElement(cell.first, cell.second).down;
+        case Left:
+            return getElement(cell.first, cell.second).left;
+        case Right:
+            return getElement(cell.first, cell.second).right;
+    }
 }
 

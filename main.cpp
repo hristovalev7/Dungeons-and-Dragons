@@ -3,7 +3,7 @@
 
 int main()
 {
-    Matrix<char> matrix(7, 7);
+    Matrix<MatrixCell> matrix(7, 7);
     matrix.fillMatrix('.');
     Map map(matrix);
     map.generateMaze();

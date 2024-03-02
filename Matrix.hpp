@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstddef>
 #include "Direction.hpp"
+#include "Cell.hpp"
 
 template<typename T>
 class Matrix
@@ -32,7 +33,7 @@ public:
 
     virtual void print() const;
 
-    void fillMatrix(const T& c);
+    void fillMatrix(const char& c);
 
     [[nodiscard]] size_t getRows() const;
 
@@ -163,7 +164,7 @@ void Matrix<T>::print() const
 }
 
 template<typename T>
-void Matrix<T>::fillMatrix(const T& c)
+void Matrix<T>::fillMatrix(const char& c)
 {
     for (int i{0}; i < rows; ++i)
     {

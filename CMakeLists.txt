@@ -9,6 +9,5 @@ add_executable(Dungeons_and_Dragons
         Map.cpp
         Map.hpp
         Direction.hpp
-        Graph.cpp
-        Graph.hpp
+        Cell.hpp
 )

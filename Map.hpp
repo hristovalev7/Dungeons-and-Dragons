@@ -7,6 +7,7 @@
 #include <random>
 #include "Matrix.hpp"
 #include "Cell.hpp"
+#include "functions.hpp"
 
 class Map : public Matrix<MatrixCell>
 {
@@ -29,6 +30,8 @@ public:
     [[nodiscard]] bool canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const;
 
     void generateMaze();
+
+    void nextLevel();
 };
 
 

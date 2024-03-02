@@ -170,3 +170,12 @@ bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Directi
     }
 }
 
+void Map::nextLevel()
+{
+    ++level;
+    std::string fileName{"level"};
+    fileName = fileName + numberToString(level);
+    fileName.append(".txt");
+    //Read from file
+}
+

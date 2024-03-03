@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-struct MatrixCell
+struct Cell
 {
     bool up;
     bool down;
@@ -11,16 +11,16 @@ struct MatrixCell
     bool right;
     char symbol;
 
-    MatrixCell& operator=(const char c)
+    Cell& operator=(const char c)
     {
         symbol = c;
         return *this;
     }
 };
 
-inline std::ostream& operator<<(std::ostream& os, const MatrixCell& matrixCell)
+inline std::ostream& operator<<(std::ostream& os, const Cell& cell)
 {
-    return os << matrixCell.symbol;
+    return os << cell.symbol;
 }
 
 #endif //DUNGEONS_AND_DRAGONS_CELL_HPP

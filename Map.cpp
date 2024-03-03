@@ -1,7 +1,5 @@
 #include "Map.hpp"
 
-typedef std::pair<unsigned int, unsigned int> Cell;
-
 void Map::printHeader() const
 {
     // getColumns() * 4 + 1 = getColumns() * 3 + (getColumns() - 1) + 2
@@ -15,9 +13,23 @@ void Map::printHeader() const
     std::cout << '\n';
 }
 
-Map::Map(const Matrix<MatrixCell>& matrix) : Matrix(matrix), level(1), dragons(0), treasures(0)
+Map::Map() : Matrix(), level(1), dragons(0), treasures(0)
 {
+    std::string fileName{"level1.txt"};
+    std::ifstream file(fileName, std::ios::in);
+    unsigned int rows;
+    unsigned int columns;
+    while (file.good())
+    {
+        file >> rows >> columns >> dragons >> treasures;
+    }
+    file.close();
+    resize(rows, columns);
+    fillMatrix('.');
 }
+
+Map::Map(const Matrix<Cell>& matrix) : Matrix(matrix), level(1), dragons(0), treasures(0)
+{}
 
 void Map::print() const
 {
@@ -32,8 +44,8 @@ void Map::addConnection(const std::pair<unsigned int, unsigned int>& cell, const
     {
         return;
     }
-    MatrixCell currentCell{getElement(cell.first, cell.second)};
-    MatrixCell neighborCell{getElement(neighbor.first, neighbor.second)};
+    Cell currentCell{getElement(cell.first, cell.second)};
+    Cell neighborCell{getElement(neighbor.first, neighbor.second)};
     switch (direction)
     {
         case Up:
@@ -65,18 +77,18 @@ void Map::addConnection(const std::pair<unsigned int, unsigned int>& cell, const
 
 void Map::generateMaze()
 {
-    std::stack<Cell> stack;
-    std::set<Cell> visited;
+    std::stack<std::pair<unsigned int, unsigned int>> stack;
+    std::set<std::pair<unsigned int, unsigned int>> visited;
     std::vector<Direction> eligible;
     stack.emplace(0, 0);
     visited.insert(std::make_pair(0, 0));
     while (visited.size() < getRows() * getColumns())
     {
-        Cell currentCell{stack.top()};
-        Cell neighborUp{getNeighbor(currentCell, Up)};
-        Cell neighborDown{getNeighbor(currentCell, Down)};
-        Cell neighborLeft{getNeighbor(currentCell, Left)};
-        Cell neighborRight{getNeighbor(currentCell, Right)};
+        std::pair<unsigned int, unsigned int> currentCell{stack.top()};
+        std::pair<unsigned int, unsigned int> neighborUp{getNeighbor(currentCell, Up)};
+        std::pair<unsigned int, unsigned int> neighborDown{getNeighbor(currentCell, Down)};
+        std::pair<unsigned int, unsigned int> neighborLeft{getNeighbor(currentCell, Left)};
+        std::pair<unsigned int, unsigned int> neighborRight{getNeighbor(currentCell, Right)};
         if (inBounds(neighborUp) && !visited.contains(neighborUp))
         {
             eligible.emplace_back(Up);
@@ -156,7 +168,7 @@ void Map::printMaze() const
 
 bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
 {
-    MatrixCell currentCell = getElement(cell.first, cell.second);
+    Cell currentCell = getElement(cell.first, cell.second);
     switch (direction)
     {
         case Up:
@@ -176,6 +188,20 @@ void Map::nextLevel()
     std::string fileName{"level"};
     fileName = fileName + numberToString(level);
     fileName.append(".txt");
-    //Read from file
+    std::ifstream file(fileName, std::ios::in);
+    unsigned int rows;
+    unsigned int columns;
+    unsigned int levelTreasures;
+    unsigned int levelMonsters;
+    while (file.good())
+    {
+        file >> rows >> columns >> levelTreasures >> levelMonsters;
+    }
+    file.close();
+    Matrix<Cell> matrix(rows, columns);
+    matrix.fillMatrix('.');
+    Map map(matrix);
+    map.generateMaze();
+    *this = map;
 }
 

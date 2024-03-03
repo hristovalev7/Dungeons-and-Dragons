@@ -2,6 +2,7 @@
 #define DUNGEONS_AND_DRAGONS_MAP_HPP
 
 #include <iostream>
+#include <fstream>
 #include <stack>
 #include <set>
 #include <random>
@@ -9,7 +10,7 @@
 #include "Cell.hpp"
 #include "functions.hpp"
 
-class Map : public Matrix<MatrixCell>
+class Map : public Matrix<Cell>
 {
 private:
     unsigned int level;
@@ -21,7 +22,9 @@ private:
     void printMaze() const;
 
 public:
-    Map(const Matrix<MatrixCell>& matrix);
+    Map();
+
+    Map(const Matrix<Cell>& matrix);
 
     void print() const override;
 

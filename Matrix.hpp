@@ -43,10 +43,13 @@ public:
 
     void setElement(unsigned int i, unsigned int j, const T& element);
 
+    void resize(size_t _rows, size_t _columns);
+
     [[nodiscard]] std::pair<unsigned int, unsigned int> getNeighbor(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const;
 
     [[nodiscard]] bool inBounds(std::pair<unsigned int, unsigned int> cell) const;
 };
+
 
 template<typename T>
 void Matrix<T>::deallocate()
@@ -175,6 +178,13 @@ template<typename T>
 void Matrix<T>::setElement(unsigned int i, unsigned int j, const T& element)
 {
     elements[i][j] = element;
+}
+
+template<typename T>
+void Matrix<T>::resize(size_t _rows, size_t _columns)
+{
+    Matrix<T> matrix(_rows, _columns);
+    *this = matrix;
 }
 
 template<typename T>

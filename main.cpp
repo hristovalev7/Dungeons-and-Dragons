@@ -3,10 +3,10 @@
 
 int main()
 {
-    Matrix<MatrixCell> matrix(7, 7);
-    matrix.fillMatrix('.');
-    Map map(matrix);
+    Map map;
     map.generateMaze();
+    map.print();
+    map.nextLevel();
     map.print();
     return 0;
 }

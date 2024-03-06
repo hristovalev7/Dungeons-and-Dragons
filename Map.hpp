@@ -6,6 +6,7 @@
 #include <stack>
 #include <set>
 #include <random>
+#include <filesystem>
 #include "Matrix.hpp"
 #include "Cell.hpp"
 #include "functions.hpp"
@@ -20,6 +21,8 @@ private:
     void printHeader() const;
 
     void printMaze() const;
+
+    void createLevelFile(const std::string& fileName);
 
 public:
     Map();

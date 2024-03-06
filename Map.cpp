@@ -166,6 +166,40 @@ void Map::printMaze() const
     }
 }
 
+void Map::createLevelFile(const std::string& fileName)
+{
+    std::string previousLevelName{"level"};
+    previousLevelName = previousLevelName + numberToString(level - 1);
+    previousLevelName.append(".txt");
+
+    std::ifstream previousLevel(previousLevelName, std::ios::in);
+
+    unsigned int newLevelRows{};
+    unsigned int newLevelColumns{};
+    unsigned int newLevelDragons{};
+    unsigned int newLevelTreasures{};
+
+    while (previousLevel.good())
+    {
+        previousLevel >> newLevelRows >> newLevelColumns >> newLevelDragons >> newLevelTreasures;
+    }
+
+    previousLevel.close();
+
+    newLevelRows = newLevelRows + getRows();
+    newLevelColumns = newLevelColumns + getColumns();
+    newLevelDragons = newLevelDragons + dragons;
+    newLevelTreasures = newLevelTreasures + treasures;
+
+    std::ofstream newLevel(fileName, std::ios::out);
+    if (newLevel.good())
+    {
+        newLevel << newLevelRows << ' ' << newLevelColumns << ' ' << newLevelDragons << ' ' << newLevelTreasures;
+    }
+
+    newLevel.close();
+}
+
 bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
 {
     Cell currentCell = getElement(cell.first, cell.second);
@@ -184,24 +218,38 @@ bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Directi
 
 void Map::nextLevel()
 {
-    ++level;
+    unsigned int newLevel{level + 1};
+
     std::string fileName{"level"};
-    fileName = fileName + numberToString(level);
+    fileName = fileName + numberToString(newLevel);
     fileName.append(".txt");
+
+    std::filesystem::path filePath(fileName.c_str());
+    if (!std::filesystem::exists(filePath))
+    {
+        createLevelFile(fileName);
+    }
+
     std::ifstream file(fileName, std::ios::in);
-    unsigned int rows;
-    unsigned int columns;
-    unsigned int levelTreasures;
-    unsigned int levelMonsters;
+    unsigned int rows{};
+    unsigned int columns{};
+    unsigned int levelTreasures{};
+    unsigned int levelDragons{};
     while (file.good())
     {
-        file >> rows >> columns >> levelTreasures >> levelMonsters;
+        file >> rows >> columns >> levelDragons >> levelTreasures;
     }
     file.close();
+
     Matrix<Cell> matrix(rows, columns);
     matrix.fillMatrix('.');
     Map map(matrix);
     map.generateMaze();
     *this = map;
+    level = newLevel;
+    dragons = levelDragons;
+    treasures = levelTreasures;
 }
+
+
 

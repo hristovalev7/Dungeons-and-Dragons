@@ -12,4 +12,7 @@ add_executable(Dungeons_and_Dragons
         Cell.hpp
         functions.cpp
         functions.hpp
+        Class.hpp
+        Entity.cpp
+        Entity.hpp
 )

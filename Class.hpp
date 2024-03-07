@@ -1,0 +1,10 @@
+#ifndef DUNGEONS_AND_DRAGONS_CLASS_HPP
+#define DUNGEONS_AND_DRAGONS_CLASS_HPP
+
+enum Class
+{
+    Mage,
+    Warrior,
+};
+
+#endif //DUNGEONS_AND_DRAGONS_CLASS_HPP

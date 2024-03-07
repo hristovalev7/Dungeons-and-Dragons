@@ -250,6 +250,3 @@ void Map::nextLevel()
     dragons = levelDragons;
     treasures = levelTreasures;
 }
-
-
-

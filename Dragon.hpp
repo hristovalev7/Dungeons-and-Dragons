@@ -1,13 +1,10 @@
 #ifndef DUNGEONS_AND_DRAGONS_DRAGON_HPP
 #define DUNGEONS_AND_DRAGONS_DRAGON_HPP
 
-#define INITIAL_DRAGON_STRENGTH 25
-#define INITIAL_DRAGON_INTELLECT 25
-#define INITIAL_DRAGON_HEALTH 50
-
 #include <stdexcept>
 #include "Entity.hpp"
 #include "functions.hpp"
+#include "Constants.hpp"
 
 class Dragon : public Entity
 {

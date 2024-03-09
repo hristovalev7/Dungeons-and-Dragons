@@ -15,4 +15,6 @@ add_executable(Dungeons_and_Dragons
         Class.hpp
         Entity.cpp
         Entity.hpp
+        Dragon.cpp
+        Dragon.hpp
 )

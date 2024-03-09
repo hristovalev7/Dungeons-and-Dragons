@@ -3,6 +3,26 @@
 Entity::Entity(unsigned int _strength, unsigned int _intellect, unsigned int _maxHealth) : strength(_strength), intellect(_intellect), currentHealth(_maxHealth), maxHealth(_maxHealth)
 {}
 
+unsigned int Entity::getStrength() const
+{
+    return strength;
+}
+
+unsigned int Entity::getIntellect() const
+{
+    return intellect;
+}
+
+unsigned int Entity::getCurrentHealth() const
+{
+    return currentHealth;
+}
+
+unsigned int Entity::getMaxHealth() const
+{
+    return maxHealth;
+}
+
 void Entity::takeTrueDamage(unsigned int damage)
 {
     currentHealth = currentHealth - damage;

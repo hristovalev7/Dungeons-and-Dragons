@@ -11,6 +11,8 @@ private:
     ItemType itemType;
     unsigned int modifier;
 
+    void handleNothing();
+
 public:
     Item(const std::string& _name, const ItemType& _itemType, unsigned int _modifier);
 

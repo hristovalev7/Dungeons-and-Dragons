@@ -33,3 +33,11 @@ std::string numberToString(unsigned int number)
     }
     return result;
 }
+
+unsigned int randomUnsignedInt(unsigned int from, unsigned int to)
+{
+    std::random_device randomDevice;
+    std::default_random_engine generator(randomDevice());
+    std::uniform_int_distribution<unsigned int> distribution(from, to);
+    return distribution(generator);
+}

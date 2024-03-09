@@ -5,7 +5,8 @@ enum ItemType
 {
     Weapon,
     Spell,
-    Armor
+    Armor,
+    Nothing
 };
 
 #endif //DUNGEONS_AND_DRAGONS_ITEMTYPE_HPP

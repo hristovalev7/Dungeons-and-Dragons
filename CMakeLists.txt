@@ -17,4 +17,10 @@ add_executable(Dungeons_and_Dragons
         Entity.hpp
         Dragon.cpp
         Dragon.hpp
+        Player.cpp
+        Player.hpp
+        Constants.hpp
+        Item.cpp
+        Item.hpp
+        ItemType.hpp
 )

@@ -23,4 +23,6 @@ add_executable(Dungeons_and_Dragons
         Item.cpp
         Item.hpp
         ItemType.hpp
+        Game.cpp
+        Game.hpp
 )

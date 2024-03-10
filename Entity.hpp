@@ -22,6 +22,8 @@ public:
 
     [[nodiscard]] unsigned int getMaxHealth() const;
 
+    [[nodiscard]] bool isAlive() const;
+
     void takeTrueDamage(unsigned int damage);
 
     void heal(unsigned int amount);

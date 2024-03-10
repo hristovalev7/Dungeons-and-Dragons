@@ -23,6 +23,11 @@ unsigned int Entity::getMaxHealth() const
     return maxHealth;
 }
 
+bool Entity::isAlive() const
+{
+    return currentHealth > 0;
+}
+
 void Entity::takeTrueDamage(unsigned int damage)
 {
     currentHealth = currentHealth - damage;
@@ -48,5 +53,6 @@ void Entity::increaseStrength(unsigned int amount)
 {
     strength = strength + amount;
 }
+
 
 

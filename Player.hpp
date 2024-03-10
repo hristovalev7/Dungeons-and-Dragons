@@ -32,7 +32,7 @@ public:
 
     void castASpell(Entity& target) override;
 
-    void attack(Entity& target);
+    void attack(Entity& target) override;
 };
 
 

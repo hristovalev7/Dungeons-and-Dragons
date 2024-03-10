@@ -14,6 +14,8 @@ private:
 public:
     Entity(unsigned int _strength, unsigned int _intellect, unsigned int _maxHealth);
 
+    virtual ~Entity();
+
     [[nodiscard]] unsigned int getStrength() const;
 
     [[nodiscard]] unsigned int getIntellect() const;
@@ -39,6 +41,8 @@ public:
     virtual void basicAttack(Entity& target) = 0;
 
     virtual void castASpell(Entity& target) = 0;
+
+    virtual void attack(Entity& target) = 0;
 };
 
 

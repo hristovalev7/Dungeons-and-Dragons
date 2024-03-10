@@ -54,5 +54,7 @@ void Entity::increaseStrength(unsigned int amount)
     strength = strength + amount;
 }
 
+Entity::~Entity() = default;
+
 
 

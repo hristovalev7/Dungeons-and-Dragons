@@ -13,7 +13,7 @@ void Map::printHeader() const
     std::cout << '\n';
 }
 
-Map::Map() : Matrix(), level(1), dragons(0), treasures(0)
+Map::Map() : Matrix(), level(1), dragons(0), treasures(0), playerPosition(0, 0)
 {
     std::string fileName{"level1.txt"};
     std::ifstream file(fileName, std::ios::in);
@@ -26,9 +26,10 @@ Map::Map() : Matrix(), level(1), dragons(0), treasures(0)
     file.close();
     resize(rows, columns);
     fillMatrix('.');
+    setSymbol(0, 0, 'P');
 }
 
-Map::Map(const Matrix<Cell>& matrix) : Matrix(matrix), level(1), dragons(0), treasures(0)
+Map::Map(const Matrix<Cell>& matrix) : Matrix(matrix), level(1), dragons(0), treasures(0), playerPosition(0, 0)
 {}
 
 void Map::print() const
@@ -279,6 +280,24 @@ void Map::nextLevel()
     level = newLevel;
     dragons = levelDragons;
     treasures = levelTreasures;
+}
+
+void Map::movePlayer(const Direction& direction)
+{
+    std::pair<unsigned int, unsigned int> newPosition{getNeighbor(playerPosition, direction)};
+    if (inBounds(newPosition))
+    {
+        playerPosition = newPosition;
+    }
+    else
+    {
+        std::cout << "You can't go there!\n";
+    }
+}
+
+std::pair<unsigned int, unsigned int> Map::getPlayerPosition() const
+{
+    return playerPosition;
 }
 
 

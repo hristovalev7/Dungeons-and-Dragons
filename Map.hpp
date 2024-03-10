@@ -18,6 +18,8 @@ private:
     unsigned int dragons;
     unsigned int treasures;
 
+    std::pair<unsigned int, unsigned int> playerPosition;
+
     void printHeader() const;
 
     void printMaze() const;
@@ -45,11 +47,15 @@ public:
 
     [[nodiscard]] bool isEmpty(unsigned int i, unsigned int j) const;
 
+    [[nodiscard]] std::pair<unsigned int, unsigned int> getPlayerPosition() const;
+
     void setSymbol(unsigned int i, unsigned int j, char c);
 
     void generateMaze();
 
     void nextLevel();
+
+    void movePlayer(const Direction& direction);
 };
 
 

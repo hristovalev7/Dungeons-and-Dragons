@@ -216,6 +216,36 @@ bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Directi
     }
 }
 
+unsigned int Map::getTreasures() const
+{
+    return treasures;
+}
+
+unsigned int Map::getDragons() const
+{
+    return dragons;
+}
+
+bool Map::hasDragon(unsigned int i, unsigned int j) const
+{
+    return getElement(i, j).symbol == 'D';
+}
+
+bool Map::hasTreasure(unsigned int i, unsigned int j) const
+{
+    return getElement(i, j).symbol == 'T';
+}
+
+bool Map::isEmpty(unsigned int i, unsigned int j) const
+{
+    return getElement(i, j).symbol == '.';
+}
+
+void Map::setSymbol(unsigned int i, unsigned int j, char c)
+{
+    setElement(i, j, {getElement(i, j).up, getElement(i, j).down, getElement(i, j).left, getElement(i, j).right, c});
+}
+
 void Map::nextLevel()
 {
     unsigned int newLevel{level + 1};
@@ -250,3 +280,9 @@ void Map::nextLevel()
     dragons = levelDragons;
     treasures = levelTreasures;
 }
+
+
+
+
+
+

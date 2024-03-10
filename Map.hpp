@@ -35,6 +35,18 @@ public:
 
     [[nodiscard]] bool canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const;
 
+    [[nodiscard]] unsigned int getTreasures() const;
+
+    [[nodiscard]] unsigned int getDragons() const;
+
+    [[nodiscard]] bool hasDragon(unsigned int i, unsigned int j) const;
+
+    [[nodiscard]] bool hasTreasure(unsigned int i, unsigned int j) const;
+
+    [[nodiscard]] bool isEmpty(unsigned int i, unsigned int j) const;
+
+    void setSymbol(unsigned int i, unsigned int j, char c);
+
     void generateMaze();
 
     void nextLevel();

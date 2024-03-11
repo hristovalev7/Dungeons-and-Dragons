@@ -38,6 +38,7 @@ void Game::addDragons()
         }
     }
 
+    //TODO: REMOVE AFTER TESTING
     map.setSymbol(0, 1, 'D');
     map.setSymbol(1, 0, 'D');
 }

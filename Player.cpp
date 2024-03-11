@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Player.hpp"
 
 void Player::initializeStats(const Class& _characterClass)
@@ -20,21 +19,6 @@ void Player::initializeStats(const Class& _characterClass)
 Player::Player(const Class& _characterClass) : Entity(0, 0, 0), characterClass(_characterClass), weapon("Sword", Weapon, 20), spell("Fireball", Spell, 20), armor("", Nothing, 0)
 {
     initializeStats(_characterClass);
-}
-
-bool Player::hasWeapon() const
-{
-    return weapon.getItemType() != Nothing;
-}
-
-bool Player::hasSpell() const
-{
-    return spell.getItemType() != Nothing;
-}
-
-bool Player::hasArmor() const
-{
-    return armor.getItemType() != Nothing;
 }
 
 void Player::takeDamage(unsigned int amount)
@@ -101,33 +85,61 @@ void Player::levelUp()
     }
 }
 
-Item Player::getWeapon() const
+Item Player::get(const ItemType& type) const
 {
-    return weapon;
+    Item result{"", Nothing, 0};
+    switch (type)
+    {
+        case Weapon:
+            result = weapon;
+            break;
+        case Armor:
+            result = armor;
+            break;
+        case Spell:
+            result = spell;
+            break;
+        case Nothing:
+            throw std::invalid_argument("Invalid argument given to Player::ger(const ItemType& type)");
+    }
+    return result;
 }
 
-Item Player::getArmor() const
+void Player::equip(const Item& item)
 {
-    return armor;
+    switch (item.getItemType())
+    {
+        case Weapon:
+            weapon = item;
+            break;
+        case Armor:
+            armor = item;
+            break;
+        case Spell:
+            spell = item;
+            break;
+        case Nothing:
+            throw std::invalid_argument("Cannot equip nothing! Player::equip(const Item& item)");
+    }
 }
 
-Item Player::getSpell() const
+bool Player::has(const ItemType& type) const
 {
-    return spell;
-}
-
-void Player::setWeapon(Item& _weapon)
-{
-    weapon = _weapon;
-}
-
-void Player::setArmor(Item& _armor)
-{
-    armor = _armor;
-}
-
-void Player::setSpell(Item& _spell)
-{
-    spell = _spell;
+    bool result{false};
+    switch (type)
+    {
+        case Weapon:
+            result = weapon.getItemType() != Nothing;
+            break;
+        case Armor:
+            result = armor.getItemType() != Nothing;
+            break;
+        case Spell:
+            result = spell.getItemType() != Nothing;
+            break;
+        case Nothing:
+            throw std::invalid_argument("Nothing given as an argument to Player::has(const Item& type)");
+    }
+    return result;
 }
 

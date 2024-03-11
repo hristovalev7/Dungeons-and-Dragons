@@ -1,6 +1,7 @@
 #ifndef DUNGEONS_AND_DRAGONS_PLAYER_HPP
 #define DUNGEONS_AND_DRAGONS_PLAYER_HPP
 
+#include <iostream>
 #include "Entity.hpp"
 #include "Class.hpp"
 #include "Constants.hpp"
@@ -20,23 +21,11 @@ private:
 public:
     Player(const Class& _characterClass);
 
-    [[nodiscard]] bool hasWeapon() const;
+    [[nodiscard]] Item get(const ItemType& type) const;
 
-    [[nodiscard]] bool hasSpell() const;
+    [[nodiscard]] bool has(const ItemType& type) const;
 
-    [[nodiscard]] bool hasArmor() const;
-
-    [[nodiscard]] Item getWeapon() const;
-
-    [[nodiscard]] Item getArmor() const;
-
-    [[nodiscard]] Item getSpell() const;
-
-    void setWeapon(Item& _weapon);
-
-    void setArmor(Item& _armor);
-
-    void setSpell(Item& _spell);
+    void equip(const Item& item);
 
     void takeDamage(unsigned int amount) override;
 

@@ -8,6 +8,7 @@ enum Direction
     Down = -1,
     Left = 2,
     Right = -2,
+    Invalid = 5
 };
 
 #endif //DUNGEONS_AND_DRAGONS_DIRECTION_HPP

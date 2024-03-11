@@ -27,6 +27,10 @@ private:
 
     void fightAftermath();
 
+    void treasureHandler();
+
+    void finalDestinationHandler();
+
 public:
     Game(const Map& _map, const Player& _player);
 

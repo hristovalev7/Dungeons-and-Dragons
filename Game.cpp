@@ -97,34 +97,23 @@ void Game::movePlayer(const Direction& direction)
     std::pair<unsigned int, unsigned int> newPosition{map.getNeighbor(currentPosition, direction)};
     if (map.hasTreasure(newPosition.first, newPosition.second))
     {
-        std::cout << "You've found a treasure!\n";
-        //TODO: Generate a random treasure
+        treasureHandler();
     }
     else if (map.hasDragon(newPosition.first, newPosition.second))
     {
-        std::cout << "Yikes! A dragon...\n";
         fight();
     }
     else if (map.isFinalDestination(newPosition.first, newPosition.second))
     {
-        std::cout << "You've reached the target location!\n";
-        std::cout << "Would you like to advance to the next level?\n";
-        std::string input;
-        std::getline(std::cin, input);
-        if (input == "yes")
-        {
-            map.nextLevel();
-            addDragons();
-            addTreasures();
-            player.levelUp();
-            std::cin.ignore(); //"std::cin >>" doesn't discard the new line at the end
-        }
+        finalDestinationHandler();
     }
     map.setSymbol(newPosition.first, newPosition.second, 'P');
 }
 
 void Game::fight()
 {
+    std::cout << "Yikes! A dragon...\n";
+
     Entity* first{nullptr};
     Entity* second{nullptr};
     Entity* dragon{nullptr};
@@ -173,6 +162,78 @@ void Game::fightAftermath()
     else
     {
         std::cout << "You died :(\n";
+    }
+}
+
+void Game::treasureHandler()
+{
+    Item item{TREASURES[randomUnsignedInt(0, 8)]};
+    std::cout << "You've found a treasure!\n";
+    std::cout << item;
+    std::string input;
+    // TODO: add a Player::has(const ItemType& type) and Player::set(const Item& item) methods to make the cases smaller
+    switch (item.getItemType())
+    {
+        case Weapon:
+            if (player.hasWeapon())
+            {
+                std::cout << "You already have this as a weapon:\n";
+                std::cout << player.getWeapon();
+                std::cout << "Equipping the treasure will REPLACE the item you already have";
+            }
+            std::cout << "Would you like to equip the newfound item?\n";
+            std::getline(std::cin, input);
+            if (input == "y" || input == "yes")
+            {
+                player.setWeapon(item);
+            }
+            break;
+        case Armor:
+            if (player.hasArmor())
+            {
+                std::cout << "You already have this as an armor:\n";
+                std::cout << player.getArmor();
+                std::cout << "Equipping the treasure will REPLACE the item you already have";
+            }
+            std::cout << "Would you like to equip the newfound item?\n";
+            std::getline(std::cin, input);
+            if (input == "y" || input == "yes")
+            {
+                player.setArmor(item);
+            }
+            break;
+        case Spell:
+            if (player.hasSpell())
+            {
+                std::cout << "You already have this as a spell:\n";
+                std::cout << player.getSpell();
+                std::cout << "Equipping the treasure will REPLACE the item you already have";
+            }
+            std::cout << "Would you like to equip the newfound item?\n";
+            std::getline(std::cin, input);
+            if (input == "y" || input == "yes")
+            {
+                player.setSpell(item);
+            }
+            break;
+        case Nothing:
+            throw std::logic_error("Invalid treasure in Game::treasureHandler()");
+    }
+}
+
+void Game::finalDestinationHandler()
+{
+    std::cout << "You've reached the target location!\n";
+    std::cout << "Would you like to advance to the next level?\n";
+    std::string input;
+    std::getline(std::cin, input);
+    if (input == "yes")
+    {
+        map.nextLevel();
+        addDragons();
+        addTreasures();
+        player.levelUp();
+        std::cin.ignore(); //"std::cin >>" doesn't discard the new line at the end
     }
 }
 

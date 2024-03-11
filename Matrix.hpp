@@ -190,17 +190,25 @@ void Matrix<T>::resize(size_t _rows, size_t _columns)
 template<typename T>
 std::pair<unsigned int, unsigned int> Matrix<T>::getNeighbor(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
 {
+    std::pair<unsigned int, unsigned int> result{0, 0};
     switch (direction)
     {
         case Up:
-            return std::make_pair(cell.first - 1, cell.second);
+            result = std::make_pair(cell.first - 1, cell.second);
+            break;
         case Down:
-            return std::make_pair(cell.first + 1, cell.second);
+            result = std::make_pair(cell.first + 1, cell.second);
+            break;
         case Left:
-            return std::make_pair(cell.first, cell.second - 1);
+            result = std::make_pair(cell.first, cell.second - 1);
+            break;
         case Right:
-            return std::make_pair(cell.first, cell.second + 1);
+            result = std::make_pair(cell.first, cell.second + 1);
+            break;
+        case Invalid:
+            throw std::logic_error("Invalid direction given to Matrix::getNeighbor()\n");
     }
+    return result;
 }
 
 template<typename T>

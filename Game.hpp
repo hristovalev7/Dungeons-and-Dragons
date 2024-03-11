@@ -17,7 +17,7 @@ private:
 
     void addDragons();
 
-    Direction parseInput(const std::string& input);
+    Direction parseDirection(const std::string& input);
 
     void movePlayer(const Direction& direction);
 

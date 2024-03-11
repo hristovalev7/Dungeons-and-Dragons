@@ -50,12 +50,19 @@ void Game::start()
         std::cout << "Where would you like to go?\n";
         std::string input;
         std::getline(std::cin, input);
-        Direction direction{parseInput(input)};
+        Direction direction{parseDirection(input)};
+        while (direction == Invalid)
+        {
+            std::cout << "Invalid direction!\n";
+            std::cout << "Try again!\n";
+            std::getline(std::cin, input);
+            direction = parseDirection(input);
+        }
         movePlayer(direction);
     }
 }
 
-Direction Game::parseInput(const std::string& input)
+Direction Game::parseDirection(const std::string& input)
 {
     if (input == "u")
     {
@@ -73,6 +80,7 @@ Direction Game::parseInput(const std::string& input)
     {
         return Right;
     }
+    return Invalid;
 }
 
 void Game::movePlayer(const Direction& direction)
@@ -96,6 +104,21 @@ void Game::movePlayer(const Direction& direction)
     {
         std::cout << "Yikes! A dragon...\n";
         fight();
+    }
+    else if (map.isFinalDestination(newPosition.first, newPosition.second))
+    {
+        std::cout << "You've reached the target location!\n";
+        std::cout << "Would you like to advance to the next level?\n";
+        std::string input;
+        std::getline(std::cin, input);
+        if (input == "yes")
+        {
+            map.nextLevel();
+            addDragons();
+            addTreasures();
+            player.levelUp();
+            std::cin.ignore(); //"std::cin >>" doesn't discard the new line at the end
+        }
     }
     map.setSymbol(newPosition.first, newPosition.second, 'P');
 }

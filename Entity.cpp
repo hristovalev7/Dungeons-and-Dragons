@@ -30,7 +30,14 @@ bool Entity::isAlive() const
 
 void Entity::takeTrueDamage(unsigned int damage)
 {
-    currentHealth = currentHealth - damage;
+    if (damage >= currentHealth)
+    {
+        currentHealth = 0;
+    }
+    else
+    {
+        currentHealth = currentHealth - damage;
+    }
 }
 
 void Entity::heal(unsigned int amount)

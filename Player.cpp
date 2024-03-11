@@ -101,3 +101,33 @@ void Player::levelUp()
     }
 }
 
+Item Player::getWeapon() const
+{
+    return weapon;
+}
+
+Item Player::getArmor() const
+{
+    return armor;
+}
+
+Item Player::getSpell() const
+{
+    return spell;
+}
+
+void Player::setWeapon(Item& _weapon)
+{
+    weapon = _weapon;
+}
+
+void Player::setArmor(Item& _armor)
+{
+    armor = _armor;
+}
+
+void Player::setSpell(Item& _spell)
+{
+    spell = _spell;
+}
+

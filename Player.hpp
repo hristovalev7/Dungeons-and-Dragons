@@ -26,6 +26,18 @@ public:
 
     [[nodiscard]] bool hasArmor() const;
 
+    [[nodiscard]] Item getWeapon() const;
+
+    [[nodiscard]] Item getArmor() const;
+
+    [[nodiscard]] Item getSpell() const;
+
+    void setWeapon(Item& _weapon);
+
+    void setArmor(Item& _armor);
+
+    void setSpell(Item& _spell);
+
     void takeDamage(unsigned int amount) override;
 
     void basicAttack(Entity& target) override;

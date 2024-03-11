@@ -37,10 +37,6 @@ void Game::addDragons()
             --d; //a.k.a generate a new random pair
         }
     }
-
-    //TODO: REMOVE AFTER TESTING
-    map.setSymbol(0, 1, 'D');
-    map.setSymbol(1, 0, 'D');
 }
 
 void Game::start()
@@ -150,6 +146,10 @@ void Game::fightAftermath()
         std::cout << "The dragon is dead!\n";
         std::cout << "You were healed for 50% of your max health!\n";
         player.heal(player.getMaxHealth() / 2);
+    }
+    else
+    {
+        std::cout << "You died :(\n";
     }
 }
 

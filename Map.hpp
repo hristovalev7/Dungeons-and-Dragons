@@ -7,6 +7,7 @@
 #include <set>
 #include <random>
 #include <filesystem>
+#include <stdexcept>
 #include "Matrix.hpp"
 #include "Cell.hpp"
 #include "functions.hpp"
@@ -48,6 +49,8 @@ public:
     [[nodiscard]] bool isEmpty(unsigned int i, unsigned int j) const;
 
     [[nodiscard]] std::pair<unsigned int, unsigned int> getPlayerPosition() const;
+
+    bool isFinalDestination(unsigned int i, unsigned int j);
 
     void setSymbol(unsigned int i, unsigned int j, char c);
 

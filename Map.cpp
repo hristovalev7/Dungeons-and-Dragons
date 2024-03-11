@@ -73,6 +73,8 @@ void Map::addConnection(const std::pair<unsigned int, unsigned int>& cell, const
             setElement(cell.first, cell.second, currentCell);
             setElement(neighbor.first, neighbor.second, neighborCell);
             break;
+        case Invalid:
+            throw std::logic_error("Invalid direction given to Map::addConnection()\n");
     }
 }
 
@@ -204,17 +206,25 @@ void Map::createLevelFile(const std::string& fileName)
 bool Map::canGo(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction) const
 {
     Cell currentCell = getElement(cell.first, cell.second);
+    bool result{false};
     switch (direction)
     {
         case Up:
-            return currentCell.up;
+            result = currentCell.up;
+            break;
         case Down:
-            return currentCell.down;
+            result = currentCell.down;
+            break;
         case Left:
-            return currentCell.left;
+            result = currentCell.left;
+            break;
         case Right:
-            return currentCell.right;
+            result = currentCell.right;
+            break;
+        case Invalid:
+            throw std::logic_error("Invalid direction given to Map::canGo()\n");
     }
+    return result;
 }
 
 unsigned int Map::getTreasures() const
@@ -280,6 +290,7 @@ void Map::nextLevel()
     level = newLevel;
     dragons = levelDragons;
     treasures = levelTreasures;
+    setSymbol(0, 0, 'P');
 }
 
 void Map::movePlayer(const Direction& direction)
@@ -300,8 +311,8 @@ std::pair<unsigned int, unsigned int> Map::getPlayerPosition() const
     return playerPosition;
 }
 
-
-
-
-
+bool Map::isFinalDestination(unsigned int i, unsigned int j)
+{
+    return (i == getRows() - 1) && (j == getColumns() - 1);
+}
 

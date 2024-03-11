@@ -105,7 +105,11 @@ void Game::movePlayer(const Direction& direction)
     }
     else if (map.isFinalDestination(newPosition.first, newPosition.second))
     {
-        finalDestinationHandler();
+        bool leveledUp{finalDestinationHandler()};
+        if (leveledUp)
+        {
+            newPosition = std::make_pair(0, 0);
+        }
     }
     map.setSymbol(newPosition.first, newPosition.second, 'P');
 }
@@ -186,13 +190,14 @@ void Game::treasureHandler()
     }
 }
 
-void Game::finalDestinationHandler()
+bool Game::finalDestinationHandler()
 {
     std::cout << "You've reached the target location!\n";
     std::cout << "Would you like to advance to the next level?\n";
     std::string input;
     std::getline(std::cin, input);
-    if (input == "yes")
+    bool leveledUp{input == "yes"};
+    if (leveledUp)
     {
         map.nextLevel();
         addDragons();
@@ -200,6 +205,7 @@ void Game::finalDestinationHandler()
         player.levelUp();
         std::cin.ignore(); //"std::cin >>" doesn't discard the new line at the end
     }
+    return leveledUp;
 }
 
 

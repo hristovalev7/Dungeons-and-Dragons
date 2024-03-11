@@ -29,7 +29,7 @@ private:
 
     void treasureHandler();
 
-    void finalDestinationHandler();
+    bool finalDestinationHandler();
 
 public:
     Game(const Map& _map, const Player& _player);

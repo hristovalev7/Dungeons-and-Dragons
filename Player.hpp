@@ -33,6 +33,8 @@ public:
     void castASpell(Entity& target) override;
 
     void attack(Entity& target) override;
+
+    void levelUp();
 };
 
 

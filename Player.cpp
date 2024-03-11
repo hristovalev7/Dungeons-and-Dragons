@@ -71,3 +71,33 @@ void Player::attack(Entity& target)
     }
 }
 
+void Player::levelUp()
+{
+    unsigned int points{30};
+    std::cout << "You leveled up!\n";
+    unsigned int strength;
+    unsigned int intellect;
+    unsigned int maxHealth;
+    std::cout << "You can now distribute " << points << " points among your stats\n";
+    while (points > 0)
+    {
+        std::cout << "How many points would you like to add to your strength?\n";
+        std::cin >> strength;
+        std::cout << "How many points would you like to add to your intellect?\n";
+        std::cin >> intellect;
+        std::cout << "How many points would you like to add to your max health?\n";
+        std::cin >> maxHealth;
+        if (strength + intellect + maxHealth > points)
+        {
+            std::cout << "You cannot spend over " << points << " points!\n";
+        }
+        else
+        {
+            points = points - (strength + intellect + maxHealth);
+            increaseStrength(strength);
+            increaseIntellect(intellect);
+            increaseMaxHealth(maxHealth);
+        }
+    }
+}
+

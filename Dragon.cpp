@@ -39,9 +39,9 @@ void Dragon::attack(Entity& target)
     }
 }
 
-Dragon::Dragon(unsigned int level) : Entity(INITIAL_DRAGON_STRENGTH + 10 * level, INITIAL_DRAGON_INTELLECT + 10 * level, INITIAL_DRAGON_HEALTH + 10 * level)
+Dragon::Dragon(unsigned int level) : Entity(INITIAL_DRAGON_STRENGTH + 10 * (level - 1), INITIAL_DRAGON_INTELLECT + 10 * (level - 1), INITIAL_DRAGON_HEALTH + 10 * (level - 1))
 {
-    scales = (unsigned int) (scales * std::pow(1 + (double) 15 / 100, level));
+    scales = (unsigned int) (scales * std::pow(1 + (double) 15 / 100, level - 1));
 }
 
 

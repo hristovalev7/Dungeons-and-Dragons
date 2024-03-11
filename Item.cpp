@@ -29,4 +29,12 @@ unsigned int Item::getModifier() const
     return modifier;
 }
 
+std::ostream& operator<<(std::ostream& os, const Item& item)
+{
+    os << "Name: " << item.getName() << '\n';
+    os << "Type: " << item.getItemType() << '\n';
+    os << "Stat modifier: " << item.getModifier() << '\n';
+    return os;
+}
+
 

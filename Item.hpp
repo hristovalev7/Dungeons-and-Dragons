@@ -2,6 +2,7 @@
 #define DUNGEONS_AND_DRAGONS_ITEM_HPP
 
 #include <string>
+#include <iostream>
 #include "ItemType.hpp"
 
 class Item
@@ -23,5 +24,6 @@ public:
     [[nodiscard]] unsigned int getModifier() const;
 };
 
+std::ostream& operator<<(std::ostream& os, const Item& item);
 
 #endif //DUNGEONS_AND_DRAGONS_ITEM_HPP

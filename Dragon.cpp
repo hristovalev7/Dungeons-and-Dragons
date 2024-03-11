@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Dragon.hpp"
 
 Dragon::Dragon() : Entity(INITIAL_DRAGON_STRENGTH, INITIAL_DRAGON_INTELLECT, INITIAL_DRAGON_HEALTH)

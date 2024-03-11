@@ -53,6 +53,10 @@ void Player::attack(Entity& target)
     {
         castASpell(target);
     }
+    else
+    {
+        ensureValidAttack(input, target);
+    }
 }
 
 void Player::levelUp()
@@ -142,4 +146,24 @@ bool Player::has(const ItemType& type) const
     }
     return result;
 }
+
+void Player::ensureValidAttack(std::string& input, Entity& target)
+{
+    while (input != "cast a spell" && input != "basic attack")
+    {
+        std::cout << "Invalid input!\n";
+        std::cout << "Type \"basic attack\" to attack with your weapon(scales with strength and weapon modifier)\n";
+        std::cout << "Type \"cast a spell\" to cas a spell(scales with intellect and spell modifier)\n";
+        std::getline(std::cin, input);
+    }
+    if (input == "basic attack")
+    {
+        basicAttack(target);
+    }
+    else // input == "cast a spell"
+    {
+        castASpell(target);
+    }
+}
+
 

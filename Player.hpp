@@ -18,6 +18,8 @@ private:
     Item spell;
     Item armor;
 
+    void ensureValidAttack(std::string& input, Entity& target);
+
 public:
     Player(const Class& _characterClass);
 

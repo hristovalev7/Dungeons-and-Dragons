@@ -1,5 +1,5 @@
-#include "Map.hpp"
-#include "Dragon.hpp"
+#include "Game.hpp"
+#include "Player.hpp"
 
 unsigned int Dragon::scales = 15;
 
@@ -7,8 +7,8 @@ int main()
 {
     Map map;
     map.generateMaze();
-    map.print();
-    map.nextLevel();
-    map.print();
+    Player player(Warrior);
+    Game game(map, player);
+    game.start();
     return 0;
 }

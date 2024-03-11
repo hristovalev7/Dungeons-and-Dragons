@@ -171,53 +171,18 @@ void Game::treasureHandler()
     std::cout << "You've found a treasure!\n";
     std::cout << item;
     std::string input;
-    // TODO: add a Player::has(const ItemType& type) and Player::set(const Item& item) methods to make the cases smaller
-    switch (item.getItemType())
+    if (player.has(item.getItemType()))
     {
-        case Weapon:
-            if (player.hasWeapon())
-            {
-                std::cout << "You already have this as a weapon:\n";
-                std::cout << player.getWeapon();
-                std::cout << "Equipping the treasure will REPLACE the item you already have";
-            }
-            std::cout << "Would you like to equip the newfound item?\n";
-            std::getline(std::cin, input);
-            if (input == "y" || input == "yes")
-            {
-                player.setWeapon(item);
-            }
-            break;
-        case Armor:
-            if (player.hasArmor())
-            {
-                std::cout << "You already have this as an armor:\n";
-                std::cout << player.getArmor();
-                std::cout << "Equipping the treasure will REPLACE the item you already have";
-            }
-            std::cout << "Would you like to equip the newfound item?\n";
-            std::getline(std::cin, input);
-            if (input == "y" || input == "yes")
-            {
-                player.setArmor(item);
-            }
-            break;
-        case Spell:
-            if (player.hasSpell())
-            {
-                std::cout << "You already have this as a spell:\n";
-                std::cout << player.getSpell();
-                std::cout << "Equipping the treasure will REPLACE the item you already have";
-            }
-            std::cout << "Would you like to equip the newfound item?\n";
-            std::getline(std::cin, input);
-            if (input == "y" || input == "yes")
-            {
-                player.setSpell(item);
-            }
-            break;
-        case Nothing:
-            throw std::logic_error("Invalid treasure in Game::treasureHandler()");
+        std::cout << "You already have a " << item.getItemType() << '\n';
+        std::cout << player.get(item.getItemType());
+        std::cout << "Equipping the newfound item will REPLACE it!\n";
+    }
+    std::cout << "Would you like to equip:\n";
+    std::cout << item;
+    std::getline(std::cin, input);
+    if (input == "yes" || input == "y")
+    {
+        player.equip(item);
     }
 }
 

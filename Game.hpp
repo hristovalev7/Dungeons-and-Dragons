@@ -19,6 +19,8 @@ private:
 
     Direction parseDirection(const std::string& input);
 
+    void ensureValidResponse(std::string& input, const Item& item);
+
     void movePlayer(const Direction& direction);
 
     void fight();

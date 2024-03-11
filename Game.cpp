@@ -156,11 +156,29 @@ void Game::treasureHandler()
     {
         std::cout << "You already have a " << item.getItemType() << '\n';
         std::cout << player.get(item.getItemType());
-        std::cout << "Equipping the newfound item will REPLACE it!\n";
+        std::cout << "Equipping the newfound item will REPLACE the one you have currently!\n";
     }
-    std::cout << "Would you like to equip:\n";
-    std::cout << item;
+    std::cout << "Would you like to equip the newfound item?\n";
     std::getline(std::cin, input);
+    if (input == "yes" || input == "y")
+    {
+        player.equip(item);
+    }
+    else if (input != "no" && input != "n")
+    {
+        ensureValidResponse(input, item);
+    }
+}
+
+void Game::ensureValidResponse(std::string& input, const Item& item)
+{
+    while (input != "yes" && input != "no" && input != "y" && input != "n")
+    {
+        std::cout << "Invalid response!\n";
+        std::cout << "Type \"yes\" or \"y\" to equip\n";
+        std::cout << "Type \"no\" or \"n\" to discard\n";
+        std::getline(std::cin, input);
+    }
     if (input == "yes" || input == "y")
     {
         player.equip(item);
@@ -212,6 +230,8 @@ void Game::start()
     addDragons();
     gameLoop();
 }
+
+
 
 
 

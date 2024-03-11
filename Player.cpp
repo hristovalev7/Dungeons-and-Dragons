@@ -39,16 +39,20 @@ bool Player::hasArmor() const
 
 void Player::takeDamage(unsigned int amount)
 {
-    takeTrueDamage((unsigned int) (amount - (double) armor.getModifier() / 100 * amount));
+    unsigned int postMitigationDamage{(unsigned int) (amount - (double) armor.getModifier() / 100 * amount)};
+    std::cout << "You took " << postMitigationDamage << " damage from this attack\n";
+    takeTrueDamage(postMitigationDamage);
 }
 
 void Player::basicAttack(Entity& target)
 {
+    std::cout << "You basic attacked the dragon for " << getStrength() + weapon.getModifier() << '\n';
     target.takeDamage(getStrength() + weapon.getModifier());
 }
 
 void Player::castASpell(Entity& target)
 {
+    std::cout << "You cast a spell that deals " << getIntellect() + spell.getModifier() << " damage\n";
     target.takeDamage(getIntellect() + spell.getModifier());
 }
 

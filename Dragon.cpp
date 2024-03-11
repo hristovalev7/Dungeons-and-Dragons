@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Dragon.hpp"
 
 Dragon::Dragon() : Entity(INITIAL_DRAGON_STRENGTH, INITIAL_DRAGON_INTELLECT, INITIAL_DRAGON_HEALTH)
@@ -5,8 +6,9 @@ Dragon::Dragon() : Entity(INITIAL_DRAGON_STRENGTH, INITIAL_DRAGON_INTELLECT, INI
 
 void Dragon::takeDamage(unsigned int amount)
 {
-    amount = amount - scales / 100 * amount;
+    amount = (unsigned int) (amount - (double) scales / 100 * amount);
     takeTrueDamage(amount);
+    std::cout << "The dragon took " << amount << " damage\n";
 }
 
 void Dragon::basicAttack(Entity& target)
@@ -25,9 +27,11 @@ void Dragon::attack(Entity& target)
     switch (attackType)
     {
         case 0:
+            std::cout << "The dragon basic attacks you for " << getStrength() << " damage\n";
             basicAttack(target);
             break;
         case 1:
+            std::cout << "The dragon casts a spell that deals " << getIntellect() << " damage\n";
             castASpell(target);
             break;
         default:

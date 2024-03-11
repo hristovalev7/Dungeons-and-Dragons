@@ -31,6 +31,8 @@ private:
 
     bool finalDestinationHandler();
 
+    void gameLoop();
+
 public:
     Game(const Map& _map, const Player& _player);
 

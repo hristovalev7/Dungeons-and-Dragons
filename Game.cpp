@@ -39,29 +39,6 @@ void Game::addDragons()
     }
 }
 
-void Game::start()
-{
-    map.setSymbol(0, 0, 'P');
-    addTreasures();
-    addDragons();
-    while (player.isAlive())
-    {
-        map.print();
-        std::cout << "Where would you like to go?\n";
-        std::string input;
-        std::getline(std::cin, input);
-        Direction direction{parseDirection(input)};
-        while (direction == Invalid)
-        {
-            std::cout << "Invalid direction!\n";
-            std::cout << "Try again!\n";
-            std::getline(std::cin, input);
-            direction = parseDirection(input);
-        }
-        movePlayer(direction);
-    }
-}
-
 Direction Game::parseDirection(const std::string& input)
 {
     if (input == "u")
@@ -207,5 +184,34 @@ bool Game::finalDestinationHandler()
     }
     return leveledUp;
 }
+
+void Game::gameLoop()
+{
+    while (player.isAlive())
+    {
+        map.print();
+        std::cout << "Where would you like to go?\n";
+        std::string input;
+        std::getline(std::cin, input);
+        Direction direction{parseDirection(input)};
+        while (direction == Invalid)
+        {
+            std::cout << "Invalid direction!\n";
+            std::cout << "Try again!\n";
+            std::getline(std::cin, input);
+            direction = parseDirection(input);
+        }
+        movePlayer(direction);
+    }
+}
+
+void Game::start()
+{
+    map.setSymbol(0, 0, 'P');
+    addTreasures();
+    addDragons();
+    gameLoop();
+}
+
 
 

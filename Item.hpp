@@ -15,6 +15,8 @@ private:
     void handleNothing();
 
 public:
+    Item() = default;
+
     Item(const std::string& _name, const ItemType& _itemType, unsigned int _modifier);
 
     [[nodiscard]] std::string getName() const;

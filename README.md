@@ -39,4 +39,4 @@ The treasures are randomly placed on the map and contain items that can be bette
 The dragons are also randomly placed on the map. Once you reach a cell with a dragon you **have to** defeat it. If you manage to defeat a dragon, 50% of your max health is restored.
 
 # Compiling
-After compiling, ensure that the executable and the level files (level1.txt and level2.txt) are in the same directory!
+After compiling, make sure that the executable and the level files (level1.txt and level2.txt) are in the same directory!

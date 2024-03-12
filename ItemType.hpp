@@ -31,4 +31,27 @@ inline std::ostream& operator<<(std::ostream& os, const ItemType& itemType)
     return os;
 }
 
+inline std::istream& operator>>(std::istream& is, ItemType& itemType)
+{
+    std::string type;
+    is >> type;
+    if (type == "Armor")
+    {
+        itemType = Armor;
+    }
+    else if (type == "Weapon")
+    {
+        itemType = Weapon;
+    }
+    else if (type == "Spell")
+    {
+        itemType = Spell;
+    }
+    else
+    {
+        itemType = Nothing;
+    }
+    return is;
+}
+
 #endif //DUNGEONS_AND_DRAGONS_ITEMTYPE_HPP

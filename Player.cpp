@@ -171,4 +171,15 @@ Class Player::getClass() const
     return characterClass;
 }
 
+Player::Player(const Class& _characterClass, const Item& _weapon, const Item& _armor, const Item& _spell, unsigned int currentHealth, unsigned int maxHealth, unsigned int strength,
+               unsigned int intellect) : Entity(strength, intellect, maxHealth, currentHealth), weapon(_weapon), armor(_armor), spell(_spell), characterClass(_characterClass)
+{
+
+}
+
+//Player::Player(const Class& _characterClass, const Item& _weapon, const Item& _armor, const Item& _spell) : characterClass(_characterClass), weapon(_weapon), spell(_spell), armor(_armor)
+//{
+//
+//}
+
 

@@ -12,16 +12,21 @@ class Player : public Entity
 private:
     Class characterClass;
 
-    void initializeStats(const Class& _characterClass);
-
     Item weapon;
     Item spell;
     Item armor;
 
+    void initializeStats(const Class& _characterClass);
+
     void ensureValidAttack(std::string& input, Entity& target);
 
 public:
+    Player() = default;
+
     Player(const Class& _characterClass);
+
+    Player(const Class& _characterClass, const Item& _weapon, const Item& _armor, const Item& _spell, unsigned int currentHealth, unsigned int maxHealth, unsigned int strength,
+           unsigned int intellect);
 
     [[nodiscard]] Item get(const ItemType& type) const;
 

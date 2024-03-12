@@ -39,6 +39,16 @@ void Game::addDragons()
     }
 }
 
+void Game::handleExit()
+{
+    std::cout << "Where would you like to save your progress?\n";
+    std::string file;
+    std::getline(std::cin, file);
+    save(file);
+    std::cout << "Progress saved in " << file;
+    exit(0);
+}
+
 Direction Game::parseDirection(const std::string& input)
 {
     if (input == "u")
@@ -56,6 +66,10 @@ Direction Game::parseDirection(const std::string& input)
     else if (input == "r")
     {
         return Right;
+    }
+    else if (input == "exit")
+    {
+        handleExit();
     }
     return Invalid;
 }
@@ -233,9 +247,9 @@ void Game::start()
     gameLoop();
 }
 
-void Game::save()
+void Game::save(const std::string& file)
 {
-    std::ofstream saveFile("save.txt", std::ios::out | std::ios::trunc);
+    std::ofstream saveFile(file, std::ios::out | std::ios::trunc);
     if (saveFile.good())
     {
         saveFile << player.getClass() << ' ' << player.getCurrentHealth() << ' ' << player.getMaxHealth() << ' ' << player.getIntellect() << ' ' << player.getStrength() << '\n';
@@ -308,7 +322,9 @@ void Game::load(const std::string& file)
     Map loadedMap(matrix, loadedDragonPositions, loadedTreasurePositions, _level);
     level = _level;
     map = loadedMap;
+    saveFile.close();
 }
+
 
 
 

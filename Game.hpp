@@ -17,6 +17,8 @@ private:
 
     void addDragons();
 
+    void handleExit();
+
     Direction parseDirection(const std::string& input);
 
     void ensureValidResponse(std::string& input, const Item& item);
@@ -40,7 +42,7 @@ public:
 
     void start();
 
-    void save();
+    void save(const std::string& file);
 
     void load(const std::string& file);
 };

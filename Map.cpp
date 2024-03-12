@@ -330,12 +330,14 @@ void Map::addTreasure(unsigned int i, unsigned int j)
 
 void Map::removeDragon(unsigned int i, unsigned int j)
 {
+    --dragons;
     dragonPositions.erase({i, j});
 }
 
 void Map::removeTreasure(unsigned int i, unsigned int j)
 {
     treasurePositions.erase({i, j});
+    --treasures;
 }
 
 const std::set<std::pair<unsigned int, unsigned int>>& Map::getDragonPositions() const
@@ -348,7 +350,8 @@ const std::set<std::pair<unsigned int, unsigned int>>& Map::getTreasurePositions
     return treasurePositions;
 }
 
-Map::Map(const Matrix<Cell>& matrix, const std::set<std::pair<unsigned int, unsigned int>>& _dragonPositions, const std::set<std::pair<unsigned int, unsigned int>>& _treasurePositions, unsigned int _level)
+Map::Map(const Matrix<Cell>& matrix, const std::set<std::pair<unsigned int, unsigned int>>& _dragonPositions, const std::set<std::pair<unsigned int, unsigned int>>& _treasurePositions,
+         unsigned int _level)
         : Matrix<Cell>(matrix),
           dragonPositions(_dragonPositions), treasurePositions(_treasurePositions), level(_level),
           dragons(_dragonPositions.size()), treasures(_treasurePositions.size()),

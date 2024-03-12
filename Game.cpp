@@ -254,6 +254,9 @@ void Game::save(const std::string& file)
     {
         saveFile << player.getClass() << ' ' << player.getCurrentHealth() << ' ' << player.getMaxHealth() << ' ' << player.getIntellect() << ' ' << player.getStrength() << '\n';
         saveFile << map.getRows() << ' ' << map.getColumns() << ' ' << map.getDragons() << ' ' << map.getTreasures() << ' ' << level << '\n';
+        saveFile << player.get(Armor).getName() << ' ' << player.get(Armor).getItemType() << ' ' << player.get(Armor).getModifier() << '\n';
+        saveFile << player.get(Weapon).getName() << ' ' << player.get(Weapon).getItemType() << ' ' << player.get(Weapon).getModifier() << '\n';
+        saveFile << player.get(Spell).getName() << ' ' << player.get(Spell).getItemType() << ' ' << player.get(Spell).getModifier() << '\n';
         for (const std::pair<unsigned int, unsigned int>& d: map.getDragonPositions())
         {
             saveFile << d.first << ' ' << d.second << ' ';
@@ -290,6 +293,10 @@ void Game::load(const std::string& file)
     {
         saveFile >> playerClass >> currentHealth >> maxHealth >> intellect >> strength >> rows >> columns >> dragons >> treasures >> _level;
     }
+    Item armor{"", Armor, 0};
+    Item weapon{"", Weapon, 0};
+    Item spell{"", Spell, 0};
+    saveFile >> armor >> weapon >> spell;
     Matrix<Cell> matrix(rows, columns);
     std::set<std::pair<unsigned int, unsigned int>> loadedDragonPositions;
     std::set<std::pair<unsigned int, unsigned int>> loadedTreasurePositions;

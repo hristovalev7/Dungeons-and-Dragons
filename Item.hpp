@@ -26,4 +26,5 @@ public:
 
 std::ostream& operator<<(std::ostream& os, const Item& item);
 
+std::istream& operator>>(std::istream& is, Item& item);
 #endif //DUNGEONS_AND_DRAGONS_ITEM_HPP

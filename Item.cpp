@@ -4,7 +4,7 @@ void Item::handleNothing()
 {
     if (itemType == Nothing)
     {
-        name = "";
+        name = "Nothing";
         modifier = 0;
     }
 }
@@ -37,4 +37,12 @@ std::ostream& operator<<(std::ostream& os, const Item& item)
     return os;
 }
 
-
+std::istream& operator>>(std::istream& is, Item& item)
+{
+    std::string newName;
+    ItemType newType;
+    unsigned int newModifier;
+    is >> newName >> newType >> newModifier;
+    item = {newName, newType, newModifier};
+    return is;
+}

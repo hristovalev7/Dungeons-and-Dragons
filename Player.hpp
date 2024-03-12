@@ -38,6 +38,8 @@ public:
     void attack(Entity& target) override;
 
     void levelUp();
+
+    [[nodiscard]] Class getClass() const;
 };
 
 

@@ -166,4 +166,9 @@ void Player::ensureValidAttack(std::string& input, Entity& target)
     }
 }
 
+Class Player::getClass() const
+{
+    return characterClass;
+}
+
 

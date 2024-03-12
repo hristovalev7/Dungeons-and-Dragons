@@ -41,3 +41,22 @@ unsigned int randomUnsignedInt(unsigned int from, unsigned int to)
     std::uniform_int_distribution<unsigned int> distribution(from, to);
     return distribution(generator);
 }
+
+Class identifyClass(const std::string& string)
+{
+    Class result;
+    if (string == "Warrior" || string == "warrior")
+    {
+        result = Warrior;
+    }
+    else if (string == "Mage" || string == "mage")
+    {
+        result = Mage;
+    }
+    else
+    {
+        throw std::invalid_argument("Invalid class!\n");
+    }
+    return result;
+}
+

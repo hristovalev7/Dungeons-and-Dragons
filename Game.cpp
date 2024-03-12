@@ -241,9 +241,24 @@ void Game::gameLoop()
 
 void Game::start()
 {
+    bool result{true};
+    std::cout << "Type \"new game\" to start a new game or type \"load <filename>\" to continue playing\n";
+    std::string input1;
+    std::string input2;
+    std::getline(std::cin, input1, ' ');
+    std::getline(std::cin, input2, '\n');
+    if (input1 == "load" && !input2.empty())
+    {
+        load(input2);
+    }
+    else if (input1 == "new" && input2 == "game")
+    {
+        characterCreation();
+        map.generateMaze();
+        addTreasures();
+        addDragons();
+    }
     map.setSymbol(0, 0, 'P');
-    addTreasures();
-    addDragons();
     gameLoop();
 }
 
@@ -327,9 +342,30 @@ void Game::load(const std::string& file)
         }
     }
     Map loadedMap(matrix, loadedDragonPositions, loadedTreasurePositions, _level);
+    Class loadedClass{identifyClass(playerClass)};
+    Player loadedPlayer(loadedClass, weapon, armor, spell, currentHealth, maxHealth, strength, intellect);
+    for (std::pair<unsigned int, unsigned int> d: loadedDragonPositions)
+    {
+        loadedMap.setSymbol(d.first, d.second, 'D');
+    }
+    for (std::pair<unsigned int, unsigned int> t: loadedTreasurePositions)
+    {
+        loadedMap.setSymbol(t.first, t.second, 'T');
+    }
     level = _level;
     map = loadedMap;
+    player = loadedPlayer;
     saveFile.close();
+}
+
+void Game::characterCreation()
+{
+    std::cout << "There are two classes available: Warrior and Mage\n";
+    std::cout << "Which on would you like to play with?\n";
+    std::string input;
+    std::getline(std::cin, input);
+    Class playerClass{identifyClass(input)};
+    Player newPlayer(playerClass);
 }
 
 

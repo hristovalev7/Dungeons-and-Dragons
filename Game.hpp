@@ -13,6 +13,8 @@ private:
     Player player;
     Map map;
 
+    void characterCreation();
+
     void addTreasures();
 
     void addDragons();
@@ -38,6 +40,8 @@ private:
     void gameLoop();
 
 public:
+    Game() = default;
+
     Game(const Map& _map, const Player& _player);
 
     void start();

@@ -12,7 +12,7 @@ void Game::addTreasures()
         unsigned int j{randomUnsignedInt(0, map.getColumns() - 1)};
         if (map.isEmpty(i, j))
         {
-            map.setSymbol(i, j, 'T');
+            map.addTreasure(i, j);
         }
         else
         {
@@ -30,7 +30,7 @@ void Game::addDragons()
         unsigned int j{randomUnsignedInt(0, map.getColumns() - 1)};
         if (map.isEmpty(i, j))
         {
-            map.setSymbol(i, j, 'D');
+            map.addDragon(i, j);
         }
         else
         {
@@ -137,6 +137,7 @@ void Game::fightAftermath()
     if (player.isAlive())
     {
         std::cout << "The dragon is dead!\n";
+        map.removeDragon(map.getPlayerPosition().first, map.getPlayerPosition().second);
         std::cout << "You were healed for 50% of your max health!\n";
         player.heal(player.getMaxHealth() / 2);
     }
@@ -168,6 +169,7 @@ void Game::treasureHandler()
     {
         ensureValidResponse(input, item);
     }
+    map.removeTreasure(map.getPlayerPosition().first, map.getPlayerPosition().second);
 }
 
 void Game::ensureValidResponse(std::string& input, const Item& item)
@@ -229,6 +231,83 @@ void Game::start()
     addTreasures();
     addDragons();
     gameLoop();
+}
+
+void Game::save()
+{
+    std::ofstream saveFile("save.txt", std::ios::out | std::ios::trunc);
+    if (saveFile.good())
+    {
+        saveFile << player.getClass() << ' ' << player.getCurrentHealth() << ' ' << player.getMaxHealth() << ' ' << player.getIntellect() << ' ' << player.getStrength() << '\n';
+        saveFile << map.getRows() << ' ' << map.getColumns() << ' ' << map.getDragons() << ' ' << map.getTreasures() << ' ' << level << '\n';
+        for (const std::pair<unsigned int, unsigned int>& d: map.getDragonPositions())
+        {
+            saveFile << d.first << ' ' << d.second << ' ';
+        }
+        saveFile << '\n';
+        for (const std::pair<unsigned int, unsigned int>& t: map.getTreasurePositions())
+        {
+            saveFile << t.first << ' ' << t.second << ' ';
+        }
+        saveFile << '\n';
+    }
+    for (int i{0}; i < map.getRows(); ++i)
+    {
+        for (int j{0}; j < map.getColumns(); ++j)
+        {
+            if (saveFile.good())
+            {
+                saveFile << map.getElement(i, j).up << map.getElement(i, j).down << map.getElement(i, j).left << map.getElement(i, j).right;
+            }
+            saveFile << ' ';
+        }
+        saveFile << '\n';
+    }
+    saveFile.close();
+}
+
+void Game::load(const std::string& file)
+{
+    std::ifstream saveFile(file, std::ios::in);
+    std::string playerClass;
+    unsigned int currentHealth, maxHealth, intellect, strength, rows, columns, dragons, treasures, _level;
+    Cell currentCell{};
+    if (saveFile.good())
+    {
+        saveFile >> playerClass >> currentHealth >> maxHealth >> intellect >> strength >> rows >> columns >> dragons >> treasures >> _level;
+    }
+    Matrix<Cell> matrix(rows, columns);
+    std::set<std::pair<unsigned int, unsigned int>> loadedDragonPositions;
+    std::set<std::pair<unsigned int, unsigned int>> loadedTreasurePositions;
+    for (int d{0}; d < dragons; ++d)
+    {
+        unsigned int i;
+        unsigned int j;
+        saveFile >> i;
+        saveFile >> j;
+        loadedDragonPositions.emplace(i, j);
+    }
+    for (int t{0}; t < treasures; ++t)
+    {
+        unsigned int i;
+        unsigned int j;
+        saveFile >> i;
+        saveFile >> j;
+        loadedTreasurePositions.emplace(i, j);
+    }
+    for (int i{0}; i < rows && saveFile.good(); ++i)
+    {
+        for (int j{0}; j < columns && saveFile.good(); ++j)
+        {
+            char up, down, left, right;
+            saveFile >> up >> down >> left >> right;
+            currentCell = {(bool) (up - '0'), (bool) (down - '0'), (bool) (left - '0'), (bool) (right - '0'), '.'};
+            matrix.setElement(i, j, currentCell);
+        }
+    }
+    Map loadedMap(matrix, loadedDragonPositions, loadedTreasurePositions, _level);
+    level = _level;
+    map = loadedMap;
 }
 
 

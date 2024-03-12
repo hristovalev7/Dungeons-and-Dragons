@@ -39,6 +39,10 @@ public:
     Game(const Map& _map, const Player& _player);
 
     void start();
+
+    void save();
+
+    void load(const std::string& file);
 };
 
 

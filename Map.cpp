@@ -237,14 +237,14 @@ unsigned int Map::getDragons() const
     return dragons;
 }
 
-bool Map::hasDragon(unsigned int i, unsigned int j) const
+bool Map::hasDragon(unsigned int i, unsigned int j)
 {
-    return getElement(i, j).symbol == 'D';
+    return dragonPositions.contains({i, j});
 }
 
-bool Map::hasTreasure(unsigned int i, unsigned int j) const
+bool Map::hasTreasure(unsigned int i, unsigned int j)
 {
-    return getElement(i, j).symbol == 'T';
+    return treasurePositions.contains({i, j});
 }
 
 bool Map::isEmpty(unsigned int i, unsigned int j) const
@@ -315,4 +315,44 @@ bool Map::isFinalDestination(unsigned int i, unsigned int j)
 {
     return (i == getRows() - 1) && (j == getColumns() - 1);
 }
+
+void Map::addDragon(unsigned int i, unsigned int j)
+{
+    dragonPositions.emplace(i, j);
+    setSymbol(i, j, 'D');
+}
+
+void Map::addTreasure(unsigned int i, unsigned int j)
+{
+    treasurePositions.emplace(i, j);
+    setSymbol(i, j, 'T');
+}
+
+void Map::removeDragon(unsigned int i, unsigned int j)
+{
+    dragonPositions.erase({i, j});
+}
+
+void Map::removeTreasure(unsigned int i, unsigned int j)
+{
+    treasurePositions.erase({i, j});
+}
+
+const std::set<std::pair<unsigned int, unsigned int>>& Map::getDragonPositions() const
+{
+    return dragonPositions;
+}
+
+const std::set<std::pair<unsigned int, unsigned int>>& Map::getTreasurePositions() const
+{
+    return treasurePositions;
+}
+
+Map::Map(const Matrix<Cell>& matrix, const std::set<std::pair<unsigned int, unsigned int>>& _dragonPositions, const std::set<std::pair<unsigned int, unsigned int>>& _treasurePositions, unsigned int _level)
+        : Matrix<Cell>(matrix),
+          dragonPositions(_dragonPositions), treasurePositions(_treasurePositions), level(_level),
+          dragons(_dragonPositions.size()), treasures(_treasurePositions.size()),
+          playerPosition({0, 0})
+{}
+
 

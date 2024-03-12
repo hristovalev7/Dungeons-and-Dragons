@@ -20,6 +20,8 @@ private:
     unsigned int treasures;
 
     std::pair<unsigned int, unsigned int> playerPosition;
+    std::set<std::pair<unsigned int, unsigned int>> dragonPositions;
+    std::set<std::pair<unsigned int, unsigned int>> treasurePositions;
 
     void printHeader() const;
 
@@ -32,6 +34,8 @@ public:
 
     Map(const Matrix<Cell>& matrix);
 
+    Map(const Matrix<Cell>& matrix, const std::set<std::pair<unsigned int, unsigned int>>& _dragonPositions, const std::set<std::pair<unsigned int, unsigned int>>& _treasurePositions, unsigned int _level);
+
     void print() const override;
 
     void addConnection(const std::pair<unsigned int, unsigned int>& cell, const Direction& direction);
@@ -42,9 +46,9 @@ public:
 
     [[nodiscard]] unsigned int getDragons() const;
 
-    [[nodiscard]] bool hasDragon(unsigned int i, unsigned int j) const;
+    bool hasDragon(unsigned int i, unsigned int j);
 
-    [[nodiscard]] bool hasTreasure(unsigned int i, unsigned int j) const;
+    bool hasTreasure(unsigned int i, unsigned int j);
 
     [[nodiscard]] bool isEmpty(unsigned int i, unsigned int j) const;
 
@@ -59,6 +63,18 @@ public:
     void nextLevel();
 
     void movePlayer(const Direction& direction);
+
+    void addDragon(unsigned int i, unsigned int j);
+
+    void addTreasure(unsigned int i, unsigned int j);
+
+    void removeDragon(unsigned int i, unsigned int j);
+
+    void removeTreasure(unsigned int i, unsigned int j);
+
+    [[nodiscard]] const std::set<std::pair<unsigned int, unsigned int>>& getDragonPositions() const;
+
+    [[nodiscard]] const std::set<std::pair<unsigned int, unsigned int>>& getTreasurePositions() const;
 };
 
 

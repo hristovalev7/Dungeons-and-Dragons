@@ -12,7 +12,11 @@ private:
     unsigned int maxHealth;
 
 public:
+    Entity() = default;
+
     Entity(unsigned int _strength, unsigned int _intellect, unsigned int _maxHealth);
+
+    Entity(unsigned int _strength, unsigned int _intellect, unsigned int _maxHealth, unsigned int _currentHealth);
 
     virtual ~Entity();
 

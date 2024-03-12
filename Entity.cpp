@@ -61,6 +61,10 @@ void Entity::increaseStrength(unsigned int amount)
     strength = strength + amount;
 }
 
+Entity::Entity(unsigned int _strength, unsigned int _intellect, unsigned int _maxHealth, unsigned int _currentHealth) : strength(_strength), intellect(_intellect), currentHealth(_currentHealth),
+                                                                                                                        maxHealth(_maxHealth)
+{}
+
 Entity::~Entity() = default;
 
 

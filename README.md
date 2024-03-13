@@ -32,7 +32,7 @@ The player can use the following commands:
 You have three item slots:
 * Armor - reduces the damage you receive
 * Weapon - increases the damage you deal with basic attacks
-* Spell - increases the damage you deal with spells\
+* Spell - increases the damage you deal with spells
 ## Treasures
 The treasures are randomly placed on the map and contain items that can be better than the ones you have equipped, but they can also be absolutely useless. If you reach a place with a treasure, you can choose to discard it or equip it.
 ## Dragons

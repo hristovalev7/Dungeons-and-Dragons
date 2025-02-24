@@ -5,14 +5,14 @@ void Player::initializeStats(const Class& _characterClass)
     increaseMaxHealth(MAX_HEALTH);
     switch (_characterClass)
     {
-        case Mage:
-            increaseIntellect(MAGE_INTELLECT);
-            increaseStrength(MAGE_STRENGTH);
-            break;
-        case Warrior:
-            increaseStrength(WARRIOR_STRENGTH);
-            increaseIntellect(WARRIOR_INTELLECT);
-            break;
+    case Mage:
+        increaseIntellect(MAGE_INTELLECT);
+        increaseStrength(MAGE_STRENGTH);
+        break;
+    case Warrior:
+        increaseStrength(WARRIOR_STRENGTH);
+        increaseIntellect(WARRIOR_INTELLECT);
+        break;
     }
 }
 
@@ -23,7 +23,7 @@ Player::Player(const Class& _characterClass) : Entity(0, 0, 0), characterClass(_
 
 void Player::takeDamage(unsigned int amount)
 {
-    unsigned int postMitigationDamage{(unsigned int) (amount - (double) armor.getModifier() / 100 * amount)};
+    unsigned int postMitigationDamage{(unsigned int)(amount - (double)armor.getModifier() / 100 * amount)};
     std::cout << "You took " << postMitigationDamage << " damage from this attack\n";
     takeTrueDamage(postMitigationDamage);
 }
@@ -94,17 +94,17 @@ Item Player::get(const ItemType& type) const
     Item result{"", Nothing, 0};
     switch (type)
     {
-        case Weapon:
-            result = weapon;
-            break;
-        case Armor:
-            result = armor;
-            break;
-        case Spell:
-            result = spell;
-            break;
-        case Nothing:
-            throw std::invalid_argument("Invalid argument given to Player::ger(const ItemType& type)");
+    case Weapon:
+        result = weapon;
+        break;
+    case Armor:
+        result = armor;
+        break;
+    case Spell:
+        result = spell;
+        break;
+    case Nothing:
+        throw std::invalid_argument("Invalid argument given to Player::ger(const ItemType& type)");
     }
     return result;
 }
@@ -113,17 +113,17 @@ void Player::equip(const Item& item)
 {
     switch (item.getItemType())
     {
-        case Weapon:
-            weapon = item;
-            break;
-        case Armor:
-            armor = item;
-            break;
-        case Spell:
-            spell = item;
-            break;
-        case Nothing:
-            throw std::invalid_argument("Cannot equip nothing! Player::equip(const Item& item)");
+    case Weapon:
+        weapon = item;
+        break;
+    case Armor:
+        armor = item;
+        break;
+    case Spell:
+        spell = item;
+        break;
+    case Nothing:
+        throw std::invalid_argument("Cannot equip nothing! Player::equip(const Item& item)");
     }
 }
 
@@ -132,17 +132,17 @@ bool Player::has(const ItemType& type) const
     bool result{false};
     switch (type)
     {
-        case Weapon:
-            result = weapon.getItemType() != Nothing;
-            break;
-        case Armor:
-            result = armor.getItemType() != Nothing;
-            break;
-        case Spell:
-            result = spell.getItemType() != Nothing;
-            break;
-        case Nothing:
-            throw std::invalid_argument("Nothing given as an argument to Player::has(const Item& type)");
+    case Weapon:
+        result = weapon.getItemType() != Nothing;
+        break;
+    case Armor:
+        result = armor.getItemType() != Nothing;
+        break;
+    case Spell:
+        result = spell.getItemType() != Nothing;
+        break;
+    case Nothing:
+        throw std::invalid_argument("Nothing given as an argument to Player::has(const Item& type)");
     }
     return result;
 }
@@ -174,12 +174,9 @@ Class Player::getClass() const
 Player::Player(const Class& _characterClass, const Item& _weapon, const Item& _armor, const Item& _spell, unsigned int currentHealth, unsigned int maxHealth, unsigned int strength,
                unsigned int intellect) : Entity(strength, intellect, maxHealth, currentHealth), weapon(_weapon), armor(_armor), spell(_spell), characterClass(_characterClass)
 {
-
 }
 
 //Player::Player(const Class& _characterClass, const Item& _weapon, const Item& _armor, const Item& _spell) : characterClass(_characterClass), weapon(_weapon), spell(_spell), armor(_armor)
 //{
 //
 //}
-
-

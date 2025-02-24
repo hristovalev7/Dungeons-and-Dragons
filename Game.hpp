@@ -40,7 +40,7 @@ private:
     void gameLoop();
 
 public:
-    Game() = default;
+    Game();
 
     Game(const Map& _map, const Player& _player);
 

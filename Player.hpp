@@ -21,7 +21,7 @@ private:
     void ensureValidAttack(std::string& input, Entity& target);
 
 public:
-    Player() = default;
+    Player() = delete;
 
     Player(const Class& _characterClass);
 

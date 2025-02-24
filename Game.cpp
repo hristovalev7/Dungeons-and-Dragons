@@ -1,7 +1,12 @@
 #include "Game.hpp"
 
+Game::Game(): map(Map()), level(0),player(Player(Warrior))
+{
+}
+
 Game::Game(const Map& _map, const Player& _player) : map(_map), player(_player), level(1)
-{}
+{
+}
 
 void Game::addTreasures()
 {
@@ -55,19 +60,19 @@ Direction Game::parseDirection(const std::string& input)
     {
         return Up;
     }
-    else if (input == "d")
+    if (input == "d")
     {
         return Down;
     }
-    else if (input == "l")
+    if (input == "l")
     {
         return Left;
     }
-    else if (input == "r")
+    if (input == "r")
     {
         return Right;
     }
-    else if (input == "exit")
+    if (input == "exit")
     {
         handleExit();
     }
@@ -241,7 +246,6 @@ void Game::gameLoop()
 
 void Game::start()
 {
-    bool result{true};
     std::cout << "Type \"new game\" to start a new game or type \"load <filename>\" to continue playing\n";
     std::string input1;
     std::string input2;
@@ -272,12 +276,12 @@ void Game::save(const std::string& file)
         saveFile << player.get(Armor).getName() << ' ' << player.get(Armor).getItemType() << ' ' << player.get(Armor).getModifier() << '\n';
         saveFile << player.get(Weapon).getName() << ' ' << player.get(Weapon).getItemType() << ' ' << player.get(Weapon).getModifier() << '\n';
         saveFile << player.get(Spell).getName() << ' ' << player.get(Spell).getItemType() << ' ' << player.get(Spell).getModifier() << '\n';
-        for (const std::pair<unsigned int, unsigned int>& d: map.getDragonPositions())
+        for (const std::pair<unsigned int, unsigned int>& d : map.getDragonPositions())
         {
             saveFile << d.first << ' ' << d.second << ' ';
         }
         saveFile << '\n';
-        for (const std::pair<unsigned int, unsigned int>& t: map.getTreasurePositions())
+        for (const std::pair<unsigned int, unsigned int>& t : map.getTreasurePositions())
         {
             saveFile << t.first << ' ' << t.second << ' ';
         }
@@ -300,10 +304,11 @@ void Game::save(const std::string& file)
 
 void Game::load(const std::string& file)
 {
-    std::ifstream saveFile(file, std::ios::in);
+    std::ifstream saveFile(file.c_str(), std::ios::in);
     std::string playerClass;
     unsigned int currentHealth, maxHealth, intellect, strength, rows, columns, dragons, treasures, _level;
     Cell currentCell{};
+    bool open = saveFile.is_open();
     if (saveFile.good())
     {
         saveFile >> playerClass >> currentHealth >> maxHealth >> intellect >> strength >> rows >> columns >> dragons >> treasures >> _level;
@@ -337,18 +342,18 @@ void Game::load(const std::string& file)
         {
             char up, down, left, right;
             saveFile >> up >> down >> left >> right;
-            currentCell = {(bool) (up - '0'), (bool) (down - '0'), (bool) (left - '0'), (bool) (right - '0'), '.'};
+            currentCell = {(bool)(up - '0'), (bool)(down - '0'), (bool)(left - '0'), (bool)(right - '0'), '.'};
             matrix.setElement(i, j, currentCell);
         }
     }
     Map loadedMap(matrix, loadedDragonPositions, loadedTreasurePositions, _level);
     Class loadedClass{identifyClass(playerClass)};
     Player loadedPlayer(loadedClass, weapon, armor, spell, currentHealth, maxHealth, strength, intellect);
-    for (std::pair<unsigned int, unsigned int> d: loadedDragonPositions)
+    for (std::pair<unsigned int, unsigned int> d : loadedDragonPositions)
     {
         loadedMap.setSymbol(d.first, d.second, 'D');
     }
-    for (std::pair<unsigned int, unsigned int> t: loadedTreasurePositions)
+    for (std::pair<unsigned int, unsigned int> t : loadedTreasurePositions)
     {
         loadedMap.setSymbol(t.first, t.second, 'T');
     }
@@ -367,9 +372,3 @@ void Game::characterCreation()
     Class playerClass{identifyClass(input)};
     Player newPlayer(playerClass);
 }
-
-
-
-
-
-
